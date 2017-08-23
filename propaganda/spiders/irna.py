@@ -39,8 +39,8 @@ class IrnaSpider(scrapy.Spider):
             raise CloseSpider('duplicate article')
 
         yield {
-            'date': ''.join(response.xpath('//*[@id="ctl00_ctl00_ContentPlaceHolder_ContentPlaceHolder_NewsContent4_NofaDateLabel2"]/text()').extract_first()),
-            'time': ''.join(response.xpath('//*[@id="ctl00_ctl00_ContentPlaceHolder_ContentPlaceHolder_NewsContent4_NofaDateLabel3"]/text()').extract_first()),
+            'date': ''.join(response.xpath('//*[@id="ctl00_ctl00_ContentPlaceHolder_ContentPlaceHolder_NewsContent4_NofaDateLabel2"]/text()').re(r'(.*)/(.*)/(.*)')),
+            'time': ''.join(response.xpath('//*[@id="ctl00_ctl00_ContentPlaceHolder_ContentPlaceHolder_NewsContent4_NofaDateLabel3"]/text()').re(r'(.*):(.*)')),
             'title': ''.join(response.xpath('//*[@id="col-3"]/div/div[1]/div/h1/text()').extract_first()),
             'text': ''.join(response.xpath('//p[@id="ctl00_ctl00_ContentPlaceHolder_ContentPlaceHolder_NewsContent4_BodyLabel"]/text()').extract()),
             'tags': [tag.strip() for tag in response.xpath('//div[@class="Tags"]/p/a/text()').extract() if tag.strip()]
