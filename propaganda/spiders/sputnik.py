@@ -11,12 +11,12 @@ class SputnikSpider(scrapy.Spider):
         for article_url in response.css('.b-stories__title h2 a::attr(href)').extract():
             yield scrapy.Request(response.urljoin(article_url), callback=self.parse_article)
 
-        # more_button = response.xpath('//*[@id="rubric-major"]/div[2]/a/@href').extract_first()
-        # if more_button is not None:
-        #     yield response.follow(more_button, callback=self.parse)
-        #
-        # for next_article in ('/business/', '/politics/', '/analysis/', '/art_living/', '/science/'):
-        #     yield response.follow(next_article, callback=self.parse)
+        more_button = response.xpath('//*[@id="rubric-major"]/div[2]/a/@href').extract_first()
+        if more_button is not None:
+            yield response.follow(more_button, callback=self.parse)
+
+        for next_article in ('/business/', '/politics/', '/analysis/', '/art_living/', '/science/'):
+            yield response.follow(next_article, callback=self.parse)
 
 
 
