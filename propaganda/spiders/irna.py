@@ -12,10 +12,10 @@ class IrnaSpider(scrapy.Spider):
         for article_url in response.css('.DataListContainer h3 a::attr(href)').extract():
             yield scrapy.Request(response.urljoin(article_url), callback=self.parse_article)
 
-        # page_number = response.meta['page_number'] + 1
-        # if response.css('#MoreButton'):
-        #     yield scrapy.Request('{}/page{}'.format(self.base_url, page_number),
-        #         callback=self.parse, meta={'page_number': page_number})
+        page_number = response.meta['page_number'] + 1
+        if response.css('#MoreButton'):
+            yield scrapy.Request('{}/page{}'.format(self.base_url, page_number),
+                callback=self.parse, meta={'page_number': page_number})
 
 
         for next_article in ('/en/services/162/', '/en/services/163/', '/en/services/164/'):
