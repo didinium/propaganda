@@ -13,7 +13,7 @@ class NeoeconomicsSpider(scrapy.Spider):
 
         page_number = response.meta['page_number'] + 1
 
-        new_url = 'https://journal-neo.org/category/columns/politics/page/' + str(page_number)
+        new_url = 'https://journal-neo.org/category/columns/economics/' + str(page_number)
 
         if page_number is not 51:
             yield scrapy.Request(new_url, callback=self.parse, meta={'page_number': page_number})
