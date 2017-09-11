@@ -3,7 +3,7 @@ from scrapy.exceptions import CloseSpider
 
 class IrnaSpider(scrapy.Spider):
     name = 'irna'
-    base_url = 'http://www.irna.ir/en/services/161'
+    base_url = 'http://www.irna.ir/en/services/164'
     next_page = 162
 
 
